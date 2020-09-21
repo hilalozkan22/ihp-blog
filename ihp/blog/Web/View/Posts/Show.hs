@@ -1,6 +1,6 @@
 module Web.View.Posts.Show where
 import Web.View.Prelude
-import Web.RenderFunc
+import Web.Render
 
 data ShowView = ShowView { post :: Include "comments" Post }
 

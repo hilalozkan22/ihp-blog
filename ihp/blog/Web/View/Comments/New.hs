@@ -1,6 +1,6 @@
 module Web.View.Comments.New where
 import Web.View.Prelude
-import Web.RenderFunc
+import Web.Render
 
 data NewView = NewView 
     { comment :: Comment 

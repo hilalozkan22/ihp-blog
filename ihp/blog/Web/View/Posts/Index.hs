@@ -1,6 +1,6 @@
 module Web.View.Posts.Index where
 import Web.View.Prelude
-import Web.RenderFunc
+import Web.Render
 
 
 data IndexView = IndexView { posts :: [Post] }
