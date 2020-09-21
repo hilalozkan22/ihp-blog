@@ -1,5 +1,6 @@
 module Web.View.Comments.New where
 import Web.View.Prelude
+import qualified Text.MMark as MMark
 
 data NewView = NewView 
     { comment :: Comment 
@@ -14,7 +15,7 @@ instance View NewView ViewContext where
                 <li class="breadcrumb-item active">New Comment</li>
             </ol>
         </nav>
-        <h1>New Comment for <q>{get #title post}</q></h1>
+        <h1>New Comment for <q>{get #title post |> renderMarkdown}</q></h1>
         {renderForm comment}
     |]
 
@@ -25,3 +26,8 @@ renderForm comment = formFor comment [hsx|
     {textField #body}
     {submitButton}
 |]
+
+renderMarkdown text = 
+    case text |> MMark.parse "" of
+        Left error -> "Something went wrong"
+        Right markdown -> MMark.render markdown |> tshow |> preEscapedToHtml

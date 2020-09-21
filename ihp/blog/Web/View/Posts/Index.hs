@@ -1,5 +1,6 @@
 module Web.View.Posts.Index where
 import Web.View.Prelude
+import qualified Text.MMark as MMark
 
 data IndexView = IndexView { posts :: [Post] }
 
@@ -26,10 +27,14 @@ instance View IndexView ViewContext where
         </div>
     |]
 
+renderMarkdown text = 
+    case text |> MMark.parse "" of
+        Left error -> "Something went wrong"
+        Right markdown -> MMark.render markdown |> tshow |> preEscapedToHtml
 
 renderPost post = [hsx|
     <tr>
-        <td><a href={ShowPostAction (get #id post)}>{get #title post}</a></td>
+        <td><a href={ShowPostAction (get #id post)}>{get #title post |> renderMarkdown}</a></td>
         <td><a href={EditPostAction (get #id post)} class="text-muted">Edit</a></td>
         <td><a href={DeletePostAction (get #id post)} class="js-delete text-muted">Delete</a></td>
     </tr>
