@@ -1,4 +1,4 @@
-module Web.RenderFunc where
+module Web.Render where
 import Web.View.Prelude
 import qualified Text.MMark as MMark
 
