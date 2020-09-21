@@ -1,6 +1,7 @@
 module Web.View.Posts.Index where
 import Web.View.Prelude
-import qualified Text.MMark as MMark
+import Web.RenderFunc
+
 
 data IndexView = IndexView { posts :: [Post] }
 
@@ -27,10 +28,7 @@ instance View IndexView ViewContext where
         </div>
     |]
 
-renderMarkdown text = 
-    case text |> MMark.parse "" of
-        Left error -> "Something went wrong"
-        Right markdown -> MMark.render markdown |> tshow |> preEscapedToHtml
+
 
 renderPost post = [hsx|
     <tr>

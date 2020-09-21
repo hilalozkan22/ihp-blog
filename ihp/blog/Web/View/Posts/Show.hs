@@ -1,6 +1,6 @@
 module Web.View.Posts.Show where
 import Web.View.Prelude
-import qualified Text.MMark as MMark
+import Web.RenderFunc
 
 data ShowView = ShowView { post :: Include "comments" Post }
 
@@ -22,12 +22,7 @@ instance View ShowView ViewContext where
         
     |]
     
-           
-    
-renderMarkdown text = 
-    case text |> MMark.parse "" of
-        Left error -> "Something went wrong"
-        Right markdown -> MMark.render markdown |> tshow |> preEscapedToHtml  
+            
 
         
 renderComment comment = [hsx|

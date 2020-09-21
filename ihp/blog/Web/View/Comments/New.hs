@@ -1,6 +1,6 @@
 module Web.View.Comments.New where
 import Web.View.Prelude
-import qualified Text.MMark as MMark
+import Web.RenderFunc
 
 data NewView = NewView 
     { comment :: Comment 
@@ -27,7 +27,4 @@ renderForm comment = formFor comment [hsx|
     {submitButton}
 |]
 
-renderMarkdown text = 
-    case text |> MMark.parse "" of
-        Left error -> "Something went wrong"
-        Right markdown -> MMark.render markdown |> tshow |> preEscapedToHtml
+
